@@ -1,0 +1,2 @@
+# install the prodution dependancies
+-r requirements/production.txt
