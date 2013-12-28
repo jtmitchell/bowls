@@ -4,7 +4,6 @@ from .base import *
 
 DEBUG = True
 TEMPLATE_DEBUG = True
-TEST_RUNNER = 'nose_runner.run_tests'
 
 DATABASES['default']['USER'] = get_env_variable('BOWLS_DB_PASSWORD')
 DATABASES['default']['PASSWORD'] = get_env_variable('BOWLS_DB_PASSWORD')
