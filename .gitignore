@@ -3,6 +3,7 @@
 *.pyc
 .project
 .pydevproject
+.settings/
 local_settings.py
 *.nja
 staticfiles/
