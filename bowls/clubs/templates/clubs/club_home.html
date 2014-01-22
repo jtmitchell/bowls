@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load static from staticfiles %}
+
+{%  block content %}
+<h1>Clubs</h1>
+
+<ul>
+	<li><a href="{% url 'club_list' %}">List of Clubs</a></li>
+	<li><a href="{% url 'team_list' %}">List of Teams</a></li>
+	<li><a href="{% url 'player_list' %}">List of Players</a></li>
+</ul>
+{% endblock %}
