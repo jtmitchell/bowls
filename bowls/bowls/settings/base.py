@@ -1,9 +1,10 @@
 # Django settings for bowls project.
 
 import os
+from os.path import join, abspath, dirname
+import urlparse
 
 from django.core.exceptions import ImproperlyConfigured
-from os.path import join, abspath, dirname
 
 
 def get_env_variable(var_name):
@@ -30,17 +31,22 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'bowls',                      # Or path to database file if using sqlite3.
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+# get database connection from the environment
+# protocol://username:password@host:port/database_name
+
+DATABASES = {}
+url = urlparse.urlparse(get_env_variable('DATABASE_URL'))
+DATABASES['default'] = {
+    'NAME': url.path[1:],
+    'USER': url.username,
+    'PASSWORD': url.password,
+    'HOST': url.hostname,
+    'PORT': url.port,
     }
-}
+if url.scheme == 'postgres':
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+elif url.scheme == 'mysql':
+    DATABASES['default']['ENGINE'] = 'django.db.backends.mysql'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
