@@ -8,3 +8,4 @@ local_settings.py
 *.nja
 staticfiles/
 media/
+stackato.yml
