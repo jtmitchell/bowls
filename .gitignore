@@ -1,6 +1,7 @@
 *.log
 *.pot
 *.pyc
+*~
 .project
 .pydevproject
 .settings/

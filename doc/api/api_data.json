@@ -1,0 +1,73 @@
+[
+  {
+    "type": "get",
+    "url": "/api/clubs/:id",
+    "title": "Request club information",
+    "name": "GetClub",
+    "group": "Club",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "field": "id",
+            "optional": false,
+            "description": "Club unique id"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "name",
+            "optional": false,
+            "description": "Club name"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "address",
+            "optional": false,
+            "description": "Club address"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "field": "contact",
+            "optional": false,
+            "description": "Club contact details"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "bowls/clubs/api.py"
+  },
+  {
+    "type": "get",
+    "url": "/api/clubs/",
+    "title": "Request a list of Clubs",
+    "name": "ListClubs",
+    "group": "Club",
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Object[]",
+            "field": "clubs",
+            "optional": false,
+            "description": "List of clubs"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "bowls/clubs/api.py"
+  }
+]
