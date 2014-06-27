@@ -5,6 +5,7 @@
 .project
 .pydevproject
 .settings/
+.env
 local_settings.py
 *.nja
 staticfiles/

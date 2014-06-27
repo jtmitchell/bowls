@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from clubs.api import ClubResource
+from clubs.api import ClubResource, PlayerResource, TeamResource
 
 from .views import HomeTemplateView
 
@@ -21,4 +21,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'api/clubs/', include(ClubResource.urls())),
+    url(r'api/players/', include(PlayerResource.urls())),
+    url(r'api/teams/', include(TeamResource.urls())),
 )
