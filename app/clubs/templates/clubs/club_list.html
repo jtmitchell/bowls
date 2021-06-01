@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+
+{%  block content %}
+<h1>Clubs</h1>
+
+<ul>
+{% for club in object_list %}
+<li>{{ club }}</li>
+{% empty %}
+<li>No clubs yet</li>
+{% endfor %}
+</ul>
+{% endblock content %}
