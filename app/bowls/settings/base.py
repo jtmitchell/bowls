@@ -102,7 +102,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
-        'DIRS': [],
+        'DIRS': [root('templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
