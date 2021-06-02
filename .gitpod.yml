@@ -6,7 +6,6 @@ ports:
 tasks:
 - init: >
     gp env DJANGO_SETTINGS_MODULE=bowls.settings.development &&
-    eval $(gp env -e)
     echo "SELECT 'CREATE DATABASE bowls' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'bowls')\gexec" | psql &&
     python -m pip install -r ./requirements/development.txt &&
     python ./app/manage.py migrate &&
