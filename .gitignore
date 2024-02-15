@@ -6,8 +6,10 @@
 .project
 .pydevproject
 .settings/
+.env
+.venv/
+venv/
 local_settings.py
 *.nja
 staticfiles/
 media/
-.env

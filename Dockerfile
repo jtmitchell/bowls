@@ -1,11 +1,10 @@
-FROM python:3.8
+FROM python:3.11
 
 ENV DJANGO_SETTINGS_MODULE bowls.settings.production
 WORKDIR /var/app
 
-COPY requirements/ requirements
-COPY requirements.txt requirements.txt
-RUN python -m pip install -r requirements.txt
+COPY requirements.production.txt requirements.txt
+RUN python3 -m pip install -r requirements.txt
 
 COPY app/ /var/app
 
