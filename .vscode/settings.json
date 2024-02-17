@@ -1,5 +1,4 @@
 {
-    "python.linting.pylintEnabled": true,
     "languageToolLinter.languageTool.ignoredWordsInWorkspace": [
         "dependabot",
         "optional-dependancies"

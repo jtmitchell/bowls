@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from .models import Location, Competition, Draw, Game, Result
+from .models import Competition, Draw, Game, Location, Result
 
 admin.site.register(Location)
 admin.site.register(Competition)
