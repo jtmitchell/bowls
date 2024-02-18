@@ -1,0 +1,60 @@
+version: '3'
+services:
+  db:
+    image: bitnami/postgresql:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD="no"
+      - POSTGRESQL_POSTGRES_PASSWORD=root1234
+      - POSTGRESQL_DATABASE=bowls
+      - POSTGRESQL_USERNAME=bowls
+      - POSTGRESQL_PASSWORD=bowls1234
+    networks:
+      default:
+        aliases:
+          - db.localhost
+
+  cache:
+    image: bitnami/redis:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    networks:
+      default:
+        aliases:
+          - redis.localhost
+
+  # SMTP server to capture outgoing emails
+  email:
+    image: docker.io/mailhog/mailhog
+    logging:
+      driver: 'none'  # disable to verbose logs
+    networks:
+      default:
+        aliases:
+          - mailhog.localhost
+
+  web:
+    ports:
+      - "5678:5678" # debug port
+    image: bowls:devcontainer
+    build:
+      context: .
+      target: devcontainer
+    restart: on-failure
+    # volumes:
+    #   - .:/var/app
+    read_only: true
+    tmpfs:
+      - /var/tmp:mode=770,uid=1000,gid=1000
+    depends_on:
+      - db
+      - email
+      - cache
+    environment:
+      - SERVER_PORT=8000
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-'dev-key'}
+      - DATABASE_URL=postgresql://bowls:bowls1234@db.localhost:5432/bowls?sslmode=allow
+    networks:
+      default:
+        aliases:
+          - bowls.localhost

@@ -13,3 +13,4 @@ local_settings.py
 *.nja
 staticfiles/
 media/
+docker-compose.override.yaml

@@ -17,26 +17,27 @@ install:
 # Create Python virtual environment
 venv:
     #!/usr/bin/env bash
-    uv venv --python 3.11 --seed venv
+    python3.11 -m venv venv --prompt bowls
     source venv/bin/activate
+    python3 -m pip install pip-tools
     just install
 
 # https://github.com/jazzband/pip-tools#updating-requirements
 #     just pip-upgrade --upgrade-package "cryptography>=41.0.6"
 # Upgrade a pip package
 pip-upgrade package:
-    CUSTOM_COMPILE_COMMAND="just pip-compile" uv pip compile \
+    CUSTOM_COMPILE_COMMAND="just pip-compile" python3 -m piptools compile \
         --upgrade-package '{{package}}' \
         --extra dev --resolver=backtracking -o requirements.txt pyproject.toml
-    CUSTOM_COMPILE_COMMAND="just pip-compile" uv pip compile \
+    CUSTOM_COMPILE_COMMAND="just pip-compile" python3 -m piptools compile \
         --upgrade-package '{{package}}' \
         --resolver=backtracking -o requirements.production.txt pyproject.toml  requirements-prod-constraint.in
 
 # Compile the production and dev requirements.txt files
 pip-compile:
-    CUSTOM_COMPILE_COMMAND="just pip-compile" uv pip compile \
+    CUSTOM_COMPILE_COMMAND="just pip-compile" python3 -m piptools compile \
         --extra dev --resolver=backtracking -o requirements.txt pyproject.toml
-    CUSTOM_COMPILE_COMMAND="just pip-compile" uv pip compile \
+    CUSTOM_COMPILE_COMMAND="just pip-compile" python3 -m piptools compile \
         --resolver=backtracking -o requirements.production.txt pyproject.toml requirements-prod-constraint.in
 
 # Add/remove packages based on current requirements.txt
@@ -44,14 +45,14 @@ pip-sync:
     #!/usr/bin/env bash
     [ -d venv ] || just venv
     source venv/bin/activate
-    uv pip sync requirements.txt
+    python3 -m piptools sync requirements.txt
 
 # Uninstall the python packages
 uninstall_pip:
     #!/usr/bin/env bash
     [ -d venv ] || just venv
     source venv/bin/activate
-    uv pip uninstall -y -r <(uv pip freeze)
+    pip uninstall -y -r <(pip freeze)
 
 # Build the docker image
 build:

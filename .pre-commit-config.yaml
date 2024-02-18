@@ -35,8 +35,8 @@ repos:
           - "--configfile=pyproject.toml"
         additional_dependencies: [ "bandit[toml]" ]
   ## These checks for migrations require the database to be available
-  - repo: https://github.com/ecugol/pre-commit-hooks-django
-    rev: "v0.4.0"
-    hooks:
-      - id: check-absent-migrations
-      - id: check-untracked-migrations
+  # - repo: https://github.com/ecugol/pre-commit-hooks-django
+  #   rev: "v0.4.0"
+  #   hooks:
+  #     - id: check-absent-migrations
+  #     - id: check-untracked-migrations

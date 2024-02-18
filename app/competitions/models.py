@@ -11,7 +11,7 @@ class Location(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -19,7 +19,7 @@ class Competition(models.Model):
     name = models.CharField(max_length=255, blank=True, default="")
     teams = models.ManyToManyField(Team)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -43,8 +43,8 @@ class Draw(models.Model):
     )
     draw_order = models.IntegerField(default=1)
 
-    def __unicode__(self):
-        return "%s %s" % (self.competition, self.name)
+    def __str__(self):
+        return f"{self.competition} {self.name}"
 
 
 class Game(models.Model):
@@ -61,8 +61,8 @@ class Game(models.Model):
     end_datetime = models.DateTimeField()
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
 
-    def __unicode__(self):
-        return "%s in %s" % (" vs ".join([x.name for x in self.teams], self.draw))
+    def __str__(self):
+        return "{} in {}".format(*" vs ".join([x.name for x in self.teams], self.draw))
 
 
 class Result(models.Model):
@@ -74,5 +74,5 @@ class Result(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     score = models.IntegerField()
 
-    def __unicode__(self):
-        return "%s %s (%s)" % (self.team, self.score, self.game)
+    def __str__(self):
+        return f"{self.team} {self.score} ({self.game})"
