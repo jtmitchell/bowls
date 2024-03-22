@@ -50,11 +50,51 @@ services:
       - email
       - cache
     environment:
-      - SERVER_PORT=8000
-      - DJANGO_SETTINGS_MODULE=config.settings.production
-      - DJANGO_SECRET_KEY=${DJANGO_SECRET_KEY:-'dev-key'}
-      - DATABASE_URL=postgresql://bowls:bowls1234@db.localhost:5432/bowls?sslmode=allow
+      # re-use variables from .env file
+      - DJANGO_SETTINGS_MODULE
+      - DJANGO_SECRET_KEY
+      - DATABASE_URL
     networks:
       default:
         aliases:
           - bowls.localhost
+
+  # celery:
+  #   entrypoint: "python -m debugpy --listen 0.0.0.0:5679 -m celery -A config worker -l info --time-limit=300 -O fair"
+  #   image: bowls:devcontainer
+  #   build:
+  #     context: .
+  #     target: devcontainer
+  #   restart: on-failure
+  #   read_only: true
+  #   tmpfs:
+  #     - /var/tmp:mode=770,uid=1000,gid=1000
+  #   depends_on:
+  #     - db
+  #     - email
+  #     - cache
+  #   environment:
+  #     # re-use variables from .env file
+  #     - DJANGO_SETTINGS_MODULE
+  #     - DJANGO_SECRET_KEY
+  #     - DATABASE_URL
+
+  # beat:
+  #   entrypoint: "python -m debugpy --listen 0.0.0.0:5679 -m celery -A config beat"
+  #   image: bowls:devcontainer
+  #   build:
+  #     context: .
+  #     target: devcontainer
+  #   restart: on-failure
+  #   read_only: true
+  #   tmpfs:
+  #     - /var/tmp:mode=770,uid=1000,gid=1000
+  #   depends_on:
+  #     - db
+  #     - email
+  #     - cache
+  #   environment:
+  #     # re-use variables from .env file
+  #     - DJANGO_SETTINGS_MODULE
+  #     - DJANGO_SECRET_KEY
+  #     - DATABASE_URL
